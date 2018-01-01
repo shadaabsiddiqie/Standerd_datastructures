@@ -1,10 +1,21 @@
-#include <bits/stdc++.h>
-
+#include "bits/stdc++.h"
 using namespace std;
 
 struct node{
      vector<int> nodes;
 };
+
+// root starts from 0 it is based on code
+
+void DFS(int root,node AdjList[] , vector<int> &visit){
+     if (visit[root]==0){
+          cout << root + 1 <<"-"<<endl;
+          visit[root] = 1;
+          for(int i =0;i< AdjList[root].nodes.size();i++){
+               DFS(AdjList[root].nodes[i], AdjList, visit);
+          }
+     }
+}
 
 int main(int argc, char const *argv[]) {
 
@@ -22,6 +33,9 @@ int main(int argc, char const *argv[]) {
      for(int i =0 ;i<no_edges;i++){
           int a ,b;
           cin >> a >> b;
+          /*
+               input might be in any form but we will convert it into 0 to n form
+          */
           AdjList[a-1].nodes.push_back(b-1);
      }
 
@@ -34,5 +48,11 @@ int main(int argc, char const *argv[]) {
           }
           cout << '\n';
      }
+
+     vector<int> visit(no_nodes,0);
+
+     std::cout << "DFS result is" << '\n';
+     DFS(0,AdjList,visit);
+
      return 0;
 }
